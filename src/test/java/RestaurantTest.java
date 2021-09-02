@@ -5,6 +5,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,6 +22,7 @@ class RestaurantTest {
 	    restaurant =new Restaurant("Amelie's cafe","Chennai",openingTime,closingTime);
 	    restaurant.addToMenu("Sweet corn soup",119);
 	    restaurant.addToMenu("Vegetable lasagne", 269);
+	    restaurant.addToMenu("Chocolate browne",400);
 	}
 	
     @Test
@@ -61,6 +64,15 @@ class RestaurantTest {
     public void removing_item_that_does_not_exist_should_throw_exception() {
         assertThrows(itemNotFoundException.class,
                 ()->restaurant.removeFromMenu("French fries"));
+    }
+    
+    @Test
+    public void get_order_value_of_selected_items_from_menu()
+    {
+    	List<String> selectedItems=new ArrayList<>();
+    	selectedItems.add("Sweet corn soup");
+    	selectedItems.add("Chocolate browne");
+    	assertEquals(519, restaurant.getOrderValue(selectedItems));
     }
     //<<<<<<<<<<<<<<<<<<<<<<<MENU>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 }
